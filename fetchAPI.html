@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GitHub Fetch Demo</title>
+  <style>
+    :root{font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color-scheme: light}
+    body{margin:0;background:#f6f8fa;color:#0b1220;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+    .card{background:#fff;border:1px solid #e6edf3;border-radius:12px;box-shadow:0 6px 20px rgba(15,23,42,0.06);width:100%;max-width:900px;padding:20px}
+    h1{margin:0 0 12px;font-size:20px}
+    .row{display:flex;gap:12px;align-items:center}
+    input[type=text], input[type=password], select{padding:10px 12px;border-radius:8px;border:1px solid #d7e0ea;flex:1;font-size:14px}
+    button{background:#0b5cff;color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:600}
+    button:disabled{opacity:.6;cursor:not-allowed}
+    .controls{display:flex;gap:8px;margin-top:12px}
+    .results{margin-top:18px}
+    .profile{display:flex;gap:16px;align-items:center}
+    .avatar{width:88px;height:88px;border-radius:10px;object-fit:cover;border:1px solid #e6edf3}
+    .meta h2{margin:0;font-size:18px}
+    .meta p{margin:4px 0;color:#42536c}
+    .stats{display:flex;gap:14px;margin-top:8px}
+    .stat{background:#f1f6fb;padding:6px 8px;border-radius:8px;font-size:13px}
+    .repo-list{margin-top:14px;display:grid;grid-template-columns:1fr;gap:10px}
+    .repo{border:1px solid #eef4fb;padding:12px;border-radius:10px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+    .repo .left{flex:1}
+    .repo h3{margin:0;font-size:15px}
+    .repo p{margin:6px 0;color:#5b6b80;font-size:13px}
+    .repo .meta{display:flex;gap:10px;font-size:13px;color:#42536c}
+    .small{font-size:12px;color:#7b8899}
+    .loader{display:inline-block;border:3px solid #e8eef6;border-top-color:#0b5cff;border-radius:50%;width:18px;height:18px;animation:spin 1s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .error{color:#b91c1c;background:#fff4f4;padding:10px;border-radius:8px;border:1px solid #f8d7da}
+    footer{margin-top:14px;color:#6b7686;font-size:13px}
+    @media (min-width:720px){.repo-list{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>GitHub Fetch Demo — HTML + Fetch API (no Tailwind)</h1>
+
+    <div class="row">
+      <input id="username" type="text" placeholder="GitHub username (e.g. torvalds)" value="octocat" />
+      <input id="token" type="password" placeholder="Optional: Personal access token (for higher rate limits)" />
+      <button id="fetchBtn">Fetch</button>
+    </div>
+
+    <div class="controls">
+      <label class="small">Repos per page:
+        <select id="perPage">
+          <option value="30">30</option>
+          <option value="50">50</option>
+          <option value="100" selected>100</option>
+        </select>
+      </label>
+      <label class="small">Sort:
+        <select id="sort">
+          <option value="updated">updated</option>
+          <option value="pushed">pushed</option>
+          <option value="full_name">name</option>
+        </select>
+      </label>
+      <div style="margin-left:auto" class="small">Tip: Add token if you get rate-limited</div>
+    </div>
+
+    <div id="status" class="results"></div>
+
+    <div id="output" class="results"></div>
+
+    <footer>Open the browser console to see raw responses. This demo uses public GitHub REST API endpoints.</footer>
+  </div>
+  <script src="./fetchAPI.js"></script>
+</body>
+
+</html>
